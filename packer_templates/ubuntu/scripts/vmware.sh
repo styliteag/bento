@@ -1,7 +1,7 @@
 #!/bin/sh -eux
 
 case "$PACKER_BUILDER_TYPE" in
-vmware-iso|vmware-vmx)
+vmware-iso|vmware-vmx|vsphere-iso)
     echo "install open-vm-tools"
     apt-get install -y open-vm-tools;
     mkdir /mnt/hgfs;
