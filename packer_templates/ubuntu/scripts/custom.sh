@@ -11,6 +11,12 @@ hostnamectl set-hostname $newhostname
 echo "Setting German Keyboard on console"
 localectl set-keymap de nodeadkeys
 
+echo "Setting LANG C.UTF-8"
+localectl set-locale C.UTF-8
+
+echo "Setting Timezone Europe/Berlin"
+timedatectl set-timezone Europe/Berlin
+
 echo "remove nfs-common rpcbind"
 apt-get -y purge nfs-common rpcbind || true;
 
