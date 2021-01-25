@@ -61,7 +61,7 @@
           "disk_thin_provisioned": true
         }
       ],
-      "notes": "Build by Packer USER:vagrant/vagrant",
+      "notes": "Build by Packer on dev@stylite USER:vagrant/vagrant",
       "configuration_parameters": {
 	      "disk.EnableUUID": "TRUE"
       },
