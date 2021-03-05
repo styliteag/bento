@@ -93,7 +93,7 @@
         "{{template_dir}}/scripts/custom.sh",
         "{{template_dir}}/scripts/cleanup.sh",
         "{{template_dir}}/../_common/minimize.sh",
-        "{{template_dir}}/../_common/remove-vagrant-key.sh"
+        "{{template_dir}}/../_common/remove-ssh-keys.sh"
       ],
       "type": "shell"
     }
