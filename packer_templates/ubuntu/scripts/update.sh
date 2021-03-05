@@ -29,6 +29,18 @@ apt-get -y purge unattended-upgrades ubuntu-release-upgrader-core;
 echo "update the package list"
 apt-get -y update;
 
+ubuntu_version="`lsb_release -r | awk '{print $2}'`";
+major_version="`echo $ubuntu_version | awk -F. '{print $1}'`";
+
+if [ "$ubuntu_version" = "16.04" ]; then
+   apt-get -y install --install-recommends linux-generic-hwe-16.04
+fi
+
+if [ "$ubuntu_version" = "18.04" ]; then
+   apt-get -y install --install-recommends linux-generic-hwe-18.04
+fi
+
+
 echo "upgrade all installed packages incl. kernel and kernel headers"
 apt-get -y dist-upgrade -o Dpkg::Options::="--force-confnew";
 
