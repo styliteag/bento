@@ -1,0 +1,128 @@
+{
+  "builders": [
+    {
+      "communicator": "winrm",
+      "cpus": "{{ user `cpus` }}",
+      "floppy_files": [
+        "{{ user `floppy_dir` }}/{{ user `unattended_file_path` }}"
+      ],
+      "guest_os_type": "windows9Server64Guest",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_url": "{{ user `iso_url` }}",
+      "ram": "{{ user `memory` }}",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "shutdown_timeout": "15m",
+      "type": "vsphere-iso",
+      "winrm_password": "vagrant",
+      "winrm_timeout": "12h",
+      "winrm_username": "vagrant",
+      "vm_name": "{{ user `template` }}",
+      "vcenter_server": "{{ user `vcenter_address` }}",
+      "username": "{{ user `vcenter_user` }}",
+      "password": "{{ user `vcenter_password` }}",
+      "host": "{{ user `vcenter_host` }}",
+      "datacenter": "{{ user `vcenter_dc` }}",
+      "datastore": "{{ user `vcenter_datastore` }}",
+      "cluster": "{{ user `vcenter_cluster` }}",
+      "folder": "{{ user `vcenter_folder` }}",
+      "insecure_connection": "{{ user `vcenter_ignore_ssl` }}",
+      "network_adapters": [
+        {
+          "network": "{{ user `vcenter_network` }}",
+          "network_card": "e1000"
+        }
+      ],
+      "disk_controller_type": "lsilogic-sas",
+      "storage": [
+        {
+          "disk_size": "{{user `disk_size`}}",
+          "disk_thin_provisioned": true
+        }
+      ],
+      "iso_paths": [
+        "{{ user `iso_url` }}"
+      ],
+      "convert_to_template": true
+    }
+  ],
+  "provisioners": [
+    {
+      "cookbook_paths": [
+        "{{template_dir}}/cookbooks"
+      ],
+      "guest_os_type": "windows",
+      "run_list": [
+        "packer::disable_uac",
+        "packer::disable_restore",
+        "packer::disable_windows_update",
+        "packer::remove_defender",
+        "packer::configure_power",
+        "packer::disable_screensaver"
+      ],
+      "type": "chef-solo"
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "cookbook_paths": [
+        "{{template_dir}}/cookbooks"
+      ],
+      "guest_os_type": "windows",
+      "run_list": [
+        "packer::vm_tools",
+        "packer::features",
+        "packer::enable_file_sharing",
+        "packer::enable_remote_desktop",
+        "packer::ui_tweaks"
+      ],
+      "type": "chef-solo"
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "cookbook_paths": [
+        "{{template_dir}}/cookbooks"
+      ],
+      "guest_os_type": "windows",
+      "run_list": [
+        "packer::cleanup",
+        "packer::defrag"
+      ],
+      "type": "chef-solo"
+    },
+    {
+      "elevated_password": "vagrant",
+      "elevated_user": "vagrant",
+      "script": "{{template_dir}}/scripts/cleanup.ps1",
+      "type": "powershell"
+    }
+  ],
+  "variables": {
+    "build_directory": "../../builds",
+    "cpus": "2",
+    "disk_size": "40000",
+    "floppy_dir": "{{template_dir}}/answer_files",
+    "guest_additions_mode": "attach",
+    "guest_additions_url": "",
+    "headless": "true",
+    "hyperv_switch": "{{env `hyperv_switch`}}",
+    "iso_checksum": "3022424f777b66a698047ba1c37812026b9714c5",
+    "iso_url": "https://software-download.microsoft.com/download/pr/17763.737.190906-2324.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us_1.iso",
+    "memory": "4096",
+    "template": "windows-2019-standard",
+    "unattended_file_path": "2019/Autounattend.xml",
+    "virtio_win_iso": "~/virtio-win.iso",
+    "vcenter_address": "10.40.4.10",
+    "vcenter_user": "administrator@vsphere.local",
+    "vcenter_password": "vmw@re",
+    "vcenter_dc": "MyDC",
+    "vcenter_cluster": "MyCluster",
+    "vcenter_host": "10.0.0.1",
+    "vcenter_datastore": "datastore_1",
+    "vcenter_folder": "MyTemplatesFolder",
+    "vcenter_network": "VMwareNetwork",
+    "vcenter_ignore_ssl": "true"
+  }
+}
