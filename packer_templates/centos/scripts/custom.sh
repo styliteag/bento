@@ -11,5 +11,8 @@ hostnamectl set-hostname $newhostname
 echo "Setting German Keyboard on console"
 localectl set-keymap de nodeadkeys
 
+echo "Install cloud-utils-growpart"
+yum -y install cloud-utils-growpart
+
 echo "remove nfs-common rpcbind"
 dnf -y remove nfs-utils rsync 
