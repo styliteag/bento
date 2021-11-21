@@ -26,7 +26,6 @@ timedatectl set-timezone Europe/Berlin
 # Remove Bash history
 unset HISTFILE
 rm -f /root/.bash_history
-rm -f /home/${SSH_USER}/.bash_history
 
 echo "==> Clearing last login information"
 >/var/log/lastlog
@@ -38,11 +37,11 @@ echo "==> Clearing last login information"
 # apt-get install -y -f cloud-init cloud-utils #cloud-initramfs-growroot
 
 # Remove some packages to get a minimal install
-echo "==> Removing all linux kernels except the currrent one"
-#dpkg --list | awk '{ print $2 }' | grep 'linux-image-3.*-generic' | grep -v $(uname -r) | xargs apt-get -y purge
-apt-get -y purge `ls /boot/vmlinuz-* | sed -e '$d' | sed s/.*vmlinuz/linux-image/`
-apt-get -y purge $(dpkg --list |egrep 'linux-image-[0-9]' |awk '{print $3,$2}' |sort -nr |tail -n +2 |grep -v $(uname -r) |awk '{ print $2}')
-apt-get -y purge $(dpkg --list |grep '^rc' |awk '{print $2}')
+#echo "==> Removing all linux kernels except the currrent one"
+##dpkg --list | awk '{ print $2 }' | grep 'linux-image-3.*-generic' | grep -v $(uname -r) | xargs apt-get -y purge
+#apt-get -y purge `ls /boot/vmlinuz-* | sed -e '$d' | sed s/.*vmlinuz/linux-image/`
+#apt-get -y purge $(dpkg --list |egrep 'linux-image-[0-9]' |awk '{print $3,$2}' |sort -nr |tail -n +2 |grep -v $(uname -r) |awk '{ print $2}')
+#apt-get -y purge $(dpkg --list |grep '^rc' |awk '{print $2}')
 echo "==> Removing linux source"
 dpkg --list | awk '{ print $2 }' | grep linux-source | xargs apt-get -y purge
 echo "==> Removing documentation"
@@ -57,8 +56,8 @@ dpkg --list | awk '{ print $2 }' | grep -- '-doc$' | xargs apt-get -y purge
 #apt-get -y purge ruby ri doc
 #echo "==> Removing default system Python"
 #apt-get -y purge python-dbus libnl1 python-smartpm python-twisted-core libiw30 python-twisted-bin libdbus-glib-1-2 python-pexpect python-pycurl python-serial python-gobject python-pam python-openssl libffi5
-echo "==> Removing other oddities"
-apt-get -y purge popularity-contest installation-report landscape-common wireless-tools wpasupplicant ubuntu-serverguide
+#echo "==> Removing other oddities"
+#apt-get -y purge popularity-contest installation-report landscape-common wireless-tools wpasupplicant
 #apt-get -y purge nano
 
 
