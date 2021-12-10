@@ -6,7 +6,7 @@ rm /home/vagrant/.ssh/authorized_keys
 
 # Set password for root user
 echo "Set password for root user"
-echo "root:macht64vt" | chpasswd
+echo "root:mach64vt" | chpasswd
 
 # Disable vagrant user
 echo "Disable vagrant user"
