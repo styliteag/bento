@@ -77,10 +77,11 @@ echo "autoremoving packages and cleaning apt data"
 apt-get -y autoremove
 apt-get -y clean
 
-# Remove 5s grub timeout to speed up booting
-sed -i -e 's/^GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' \
-    -e 's/^GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="nosplash"/' \
-    -e 's/^GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX="console=tty1 console=ttyS0,115200"/' \
-    -e 's/^#?GRUB_TERMINAL=.*/GRUB_TERMINAL="console serial"/' \
-    /etc/default/grub
-update-grub
+## Remove 5s grub timeout to speed up booting
+## If this is enabled then Disable Predictable Network Interface names and use eth0 will not be used
+#sed -i -e 's/^GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' \
+#    -e 's/^GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="nosplash"/' \
+#    -e 's/^GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX="console=tty1 console=ttyS0,115200"/' \
+#    -e 's/^#?GRUB_TERMINAL=.*/GRUB_TERMINAL="console serial"/' \
+#    /etc/default/grub
+#update-grub
