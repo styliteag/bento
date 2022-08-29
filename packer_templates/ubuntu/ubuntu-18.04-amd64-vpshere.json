@@ -26,6 +26,7 @@
         " -- <wait>",
         "<enter><wait>"
       ],
+      "http_ip": "{{ user `preseed_ip` }}",
       "boot_wait": "10s",
       "cpus": "{{ user `cpus` }}",
       "guest_os_type": "ubuntu64Guest",
