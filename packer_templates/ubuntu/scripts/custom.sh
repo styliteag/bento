@@ -12,7 +12,8 @@ echo "Setting Hostname to $newhostname"
 hostnamectl set-hostname $newhostname
 
 echo "Setting German Keyboard on console"
-localectl set-keymap de nodeadkeys
+## FIXME ubuntu22.04 does not work
+localectl set-keymap de nodeadkeys || true
 
 
 if [ "$major_version" -ge "20" ]; then
