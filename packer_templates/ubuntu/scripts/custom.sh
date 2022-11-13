@@ -74,8 +74,9 @@ apt-get -y purge snapd
 echo "remove geoip-database"
 apt-get -y purge geoip-database
 
-echo "remove ubuntu-advantage-tools"
-apt-get -y purge ubuntu-advantage-tools || true;
+### New checkmk-agent now works with ubuntu-advantage-tools
+#echo "remove ubuntu-advantage-tools"
+#apt-get -y purge ubuntu-advantage-tools || true;
 
 echo "autoremoving packages and cleaning apt data"
 apt-get -y autoremove
