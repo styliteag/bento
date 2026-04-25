@@ -1,54 +1,72 @@
 ---
-public:
-- 'almalinux-8.4'
-- 'amazon-2'
-- 'centos-7.9'
-- 'centos-8.4'
-- 'centos-stream-8'
-- 'debian-9.13-i386'
-- 'debian-9.13'
-- 'debian-10.10-i386'
-- 'debian-10.10'
-- 'debian-11.1-i386'
-- 'debian-11.1'
-- 'fedora-33'
-- 'fedora-34'
-- 'freebsd-11.4-i386'
-- 'freebsd-11.4'
-- 'freebsd-12.2-i386'
-- 'freebsd-12.2'
-- 'freebsd-13.0'
-- 'opensuse-leap-15.3'
-- 'oracle-6.10-i386'
-- 'oracle-6.10'
-- 'oracle-7.9'
-- 'oracle-8.3'
-- 'rockylinux-8.4'
-- 'scientific-7.9'
-- 'springdalelinux-7.9'
-- 'ubuntu-16.04-i386'
-- 'ubuntu-16.04'
-- 'ubuntu-18.04'
-- 'ubuntu-20.04'
-- 'ubuntu-20.10'
-- 'ubuntu-21.04'
+vagrant_cloud_account: 'bento'
 
-# slug box name: text string from standard box name to match (generally the same)
+default_architectures:
+  - x86_64
+  - amd64
+
+public:
+  - amazonlinux-2023
+  - almalinux-8
+  - almalinux-9
+  - almalinux-10
+  - centos-stream-9
+  - centos-stream-10
+  - debian-12
+  - debian-13
+  - fedora-42
+  - fedora-43
+  - freebsd-13
+  - freebsd-14
+  - freebsd-15
+  - opensuse-leap-15
+  - opensuse-leap-16
+  - oraclelinux-8
+  - oraclelinux-9
+  - oraclelinux-10
+  - rockylinux-8
+  - rockylinux-9
+  - rockylinux-10
+  - ubuntu-22.04
+  - ubuntu-24.04
+  - ubuntu-25.04
+  - ubuntu-25.10
+
+# slug box name: text string from standard box name to match
 slugs:
-  'almalinux-8': 'almalinux-8'
-  'centos-7': 'centos-7'
-  'centos-8': 'centos-8'
-  'debian-11': 'debian-11'
-  'debian-10': 'debian-10'
-  'debian-9': 'debian-9'
-  'fedora-latest': 'fedora-34'
-  'freebsd-11': 'freebsd-11'
-  'freebsd-12': 'freebsd-12'
-  'freebsd-13': 'freebsd-13'
-  'opensuse-leap-15': 'opensuse-leap-15'
-  'oracle-6': 'oracle-6'
-  'oracle-7': 'oracle-7'
-  'oracle-8': 'oracle-8'
-  'rockylinux-8': 'rockylinux-8'
-  'scientific-7': 'scientific-7'
-  'springdalelinux-7': 'springdalelinux-7'
+  - almalinux-8
+  - almalinux-9
+  - almalinux-10
+  - debian-12
+  - debian-13
+  - fedora-latest
+  - freebsd-13
+  - freebsd-14
+  - freebsd-15
+  - opensuse-leap-15
+  - oraclelinux-8
+  - oraclelinux-9
+  - oraclelinux-10
+  - rockylinux-8
+  - rockylinux-9
+  - rockylinux-10
+  - macos-14
+  - macos-15
+  - macos-26
+
+do_not_build:
+  - amazon
+  - macos
+  - sles
+  - solaris
+  - rhel
+  - windows
+#  - almalinux
+#  - centos
+#  - debian
+#  - fedora
+#  - freebsd
+#  - opensuse-leap
+#  - oracle
+#  - rockylinux
+#  - ubuntu

@@ -1,9 +1,496 @@
 # Change Log
 
-## [v201812.27.0](https://github.com/chef/bento/tree/v201812.27.0) (2019-01-16)
-[Full Changelog](https://github.com/chef/bento/compare/v201808.24.0...v201812.27.0)
+## Working Builds
 
-**New Platforms:**
+*__Note:__
+Markdown table generated at <https://www.tablesgenerator.com/markdown_tables#>
+
+## Builds for version 202510.26.0
+
+| os | virtualbox<br>x86_64 | virtualbox<br>aarch64 | vmware<br>x86_64 | vmware<br>aarch64 | parallels<br>x86_64 | parallels<br>aarch64 | utm<br>x86_64 | utm<br>aarch64 | qemu<br>x86_64 | qemu<br>aarch64 | hyperv<br>x86_64 |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| almalinux-8 | x | na | x | na | x | na | x | na |  | na |  |
+| almalinux-9 | x | x | x | x | x | x | x | x |  |  |  |
+| almalinux-10 | x | x | x | x | x | x | x | x |  |  |  |
+| amazonlinux-2023 | x |  |  |  |  |  |  |  |  |  |  |
+| centos-stream-9 | x | x | x | x | x | x | x | x |  |  |  |
+| centos-stream-10 | x | x | x | x |  | x | x | x |  |  |  |
+| debian-12 | x | x | x | x | x | x |  |  |  |  |  |
+| debian-13 | x | x | x | x | x | x |  |  |  |  |  |
+| fedora-41 | x | x | x | x | x | x | x | x |  |  |  |
+| fedora-42 | x | x | x | x | x | x | x | x |  |  |  |
+| freebsd-13 | x | x | x | x | x | x | x |  |  |  |  |
+| freebsd-14 | x | x | x | x | x | x | x | x |  |  |  |
+| macos-14 | na | na | na | na | na | x |  |  | na | na | na |
+| macos-15 | na | na | na | na | na | x |  |  | na | na | na |
+| macos-26 | na | na | na | na | na | x |  |  | na | na | na |
+| opensuse-leap-15 | x | x | x | x | x | x |  |  |  |  |  |
+| opensuse-leap-16 | x | x | x | x | x | x | x | x |  |  |  |
+| oraclelinux-8 | x | na | x | na | x | na | x | na |  | na |  |
+| oraclelinux-9 | x | x | x | x | x | x | x | x |  |  |  |
+| oraclelinux-10 | x |  | x |  | x |  | x |  |  |  |  |
+| rockylinux-8 | x | na | x | na | x | na | x | na |  | na |  |
+| rockylinux-9 | x | x | x | x | x | x | x | x |  |  |  |
+| rockylinux-10 | x | x | x | x | x | x | x | x |  |  |  |
+| ubuntu-22.04 | x | x | x | x | x | x | x | x |  |  |  |
+| ubuntu-24.04 | x | x | x | x | x | x | x | x | x |  |  |
+| ubuntu-25.04 | x | x | x | x | x | x | x | x | x |  |  |
+| ubuntu-25.10 |  |  |  |  |  |  |  |  |  |  |  |
+| windows-11 | x | na | x |  | x | x | x | x |  |  |  |
+| windows-2016 | x | na | x | na | x | na | x | na |  | na |  |
+| windows-2019 | x | na | x | na | x | na | x | na |  | na |  |
+| windows-2022 | x | na | x | na | x | na | x | na |  | na |  |
+| windows-2025 | x | na | x | na | x | na | x | na |  | na |  |
+
+### Todo
+
+- Fix failing builds
+- migrate from http directory for hosting files to cd_files in source templates
+   - This makes all builds compatible with hyper-v gen 2 which removes floppy disk capability
+   - Eliminates any potential networking issues with host firewalls
+- Update pipelines to only run on updated pkrvars files
+- Create CD pipeline to upload vagrant boxes after PR is merged
+- Create CD pipeline to build and upload new versions of vagrant boxes once every 3 months with the latest patches
+
+## [unreleased] (2025-11-21)
+
+- Updated macos boot commands to enable remote login as last step
+- Updated Almalinux 9 to 9.7
+- Updated Almalinux 10 to 10.1
+- Updated Debian 13 to 13.3
+- Updated RHEL 9 to 9.7
+- Updated RHEL 10 to 10.1
+
+## [v5.0.1] (2025-11-21)
+
+- Updated bento to use absolute paths for packer templates
+- Added Fedora 43 builds
+- Removed EOL Fedora 41 templates
+- Defaulting all sources to use uefi where possible
+- Defaulting all sources to use nvme primary disk where possible
+- Switched to new host-info packer plugin for host info detection
+
+## [v5.0.0] (2025-08-27)
+
+- Add UTM virtualization support <https://mac.getutm.app/>
+- Fix Win11 vbox guest os type for aarch64
+- Update qemu args for aarch64 on macos to properly boot linux vms
+- Fix workflows to remove vms on cancelled jobs
+- Set workflows that have restrictions on automating virtual provider install or arm hosts to use self hosted runners
+- Fix Oracle Linux 10 aarch64 install of gcc after newer kernel updates built on newer gcc version
+- Add check on linux scripts if reboot is needed otherwise move on
+- Added qemu guest tools install script for linux
+- Added utm provider to windows vagrant file template
+- Updated fedora ks file to enable firewall and set selinux to enforcing similar to a default install
+- Added provider specific boot command variables - if null falls back to boot_command variable
+- Consolidate kickstart files
+- Added macOS 26 builds
+- Updated Debian 13 to 13.1
+- Added OpenSUSE Leap 16 builds
+- Fix Debian libvirt build
+- Added Ubuntu 25.04 and 25.10 builds
+- Misc Ubuntu script fixes
+- update testing to move files to testing_passed and testing_failed directories
+- completed build now go to builds/build_complete directory
+- fix scripts reboot checks
+
+## [v4.2.0] (2025-08-10)
+
+- Removed amazonlinux 2 builds
+- Removed Ubuntu 20.04 builds
+- Removed OpenSUSE Leap 12 builds
+- Removed Debian 11 builds
+- Removed SLES 12 builds
+- Removed Ubuntu 24.10 builds
+- Removed Windows 10 builds
+- Removed Fedora 40 builds
+- Added CentOS Stream 10 builds
+- Added Debian 13 builds
+- Added SLES 15 Aarch64 template
+- Added Windows 2025 template
+- Update almalinux 8 to 8.11
+- Update rockylinux 8 to 8.10
+- Update oraclelinux 8 to 8.10
+- Update rhel 8 to 8.10
+- Update almalinux 9 to 9.6
+- Update rockylinux 9 to 9.6
+- Update oraclelinux 9 to 9.6
+- Update rhel 9 to 9.6
+- Added almalinux 10 builds
+- Added rockylinux 10 builds
+- Added oraclelinux 10 builds
+- Added rhel 10 builds
+- Update freebsd 14 to 14.3
+- Update freebsd 13 to 13.5
+- Update debian 11 to 11.11
+- Update debian 12 to 12.11
+- Update MacOS 14 to 14.6.1
+- Update OpenSUSE Leap 15 to 15.6
+- Update SLES 15 to 15.7
+- Add macOS 15 at 15.6
+- Remove ask from --on-error flag options(it did nothing)
+- Switched most iso urls to boot images to shrink disk usage space and speed up downloads
+- Removed RHEL 7 ks.cfg file
+- Added RHEL 10 ks.cfg file
+- Fix Vbox 7.1.6+ VBoxManage and hardware config for Aarch64 builds
+- Consolidated and updated few post-processing scripts to clean up code
+- Added Packer variable for iso_target_path to default iso downloads to the local builds/iso directory
+- Updated windows scripts and order for better build performance
+- Fixed Windows 11 aarch64 builds - vbox 7.6.1 currently doesn't support Windows 11 aarch64
+- Enabled firewalld and selinux in rhel kickstart files to mimic more closely a default rhel install
+- Consolidated more scripts into common scripts
+- Updated common scripts and rearranged order for more reliable builds
+- add test pass or fail error to metadata for bento tests
+- Shorten vagrant cloud upload box short description to meet max 120 characters
+- make iso name have a portion of the hash for url string to make iso downloads unique when updated
+
+## [v4.1.2] (2024-05-23)
+
+- Fix for hyper-v build option
+- Remove test-kitchen and kitchen-vagrant dependencies from gemspec to fix gem compile error on windows
+- Updated hyper-v builds to use GitHub actions hosted runners
+- Updated VMware builds to use GitHub actions hosted runners
+- Better handle bento uploads of slugs ending in 'latest'
+- Fix oraclelinux slug names
+- Update almalinux 9.3 to 9.4
+- Update rhel 9.3 to 94
+- Update oraclelinux 9.3 to 9.4
+- Update rockylinux 9.3 to 9.4
+- Remove Centos 7, Centos Stream 8, RHEL 7, Oraclelinux 7 builds due to EOL
+- Fix windows qemu args to match disk format when variable is specified
+
+## [v4.1.1] (2024-04-26)
+
+- Require ruby >= 3.0.0
+- Add parallels-ipsw source
+- Added MacOS template for parallels-ipsw
+- Created MacOS scripts
+- Adjusted build flags to all be lower case for consistency
+- Removed extra amazonlinux directories to be more consistent with other builds
+- Added build_files directory for all temp files to be stored in during packer building
+- Opensuse-leap-15.5 updated to 15.6
+- Remove Fedora 38 and add 40 builds
+- Remove Ubuntu 23.10 and add 24.04 builds
+
+## [v4.1.0] (2024-04-11)
+
+- Add back iso check, packer lint, and amazonlinux builds to build pipeline
+- Fix amazonlinux 2 build script
+- Added amazonlinux 2023 build scripts
+- Migrate Virtualbox and Qemu builds to github hosted runners from self-hosted runners
+- Added test-kitchen and kitchen-vagrant dependencies to gemspec
+- Added arg for bento test command to specify a specific build to test - this passes the arg to the kitchen test command
+- Fix vagrant post-processor to specify custom vagrant file for freebsd builds
+- Remove gui true from windows custom vagrant file
+- Fix test to skip removing linux-firmware on oraclelinux
+- Renamed oracle boxes to oraclelinux for consistency and remove edge cases in code
+- Removed unused -c flag for specifying a specific config file for bento build
+- Added --on-error flag to bento build command to pass to packer command
+- Added cpu architecture support to bento build command, so it'll only test builds that work with the current cpu architecture
+- Remove additional Ubuntu user-date last-command that may be locking macaddress
+- Add to test to move failed test boxes to builds/failed_testing directory
+- Changed ssh_timeout to 15m
+
+## [v4.0.2] (2024-03-20)
+
+- Update upload message to show architecture
+- Fix open-vm-tools install for vmware builds
+- Fix amazonlinux 2 build script
+- Added amazonlinux 2023 build scripts
+- Allow failed tests to continue and report at the end each test that failed
+- Added amazonlinux aarch64 packer templates
+- removed unneeded config from amazon user-data script for seed.iso
+- Added additional qemu variables for various qemu source properties
+- Added virtualbox-ovf vbox_source_path and vbox_checksum variables
+- Added recursive flag to rhel cleanup scripts for persistent network files
+
+## [v4.0.1] (2024-02-16)
+
+- Fix metadata file box_basename
+- Updated Debian 11 to 11.9
+- Updated Debian 12 to 12.5
+- Added Windows 11 aarch64 template
+
+## [v4.0.0] (2024-02-05)
+
+- Added Vagrant Cloud architecture flags so amd64 and arm64 boxes can live under the same cloud box
+- Setting amd64 as default architecture for uploads, configurable in the builds.yml file
+- Update descriptions mentioning chef to progress chef
+- Update README.md to reflect vagrant version for new architecture support
+
+## [v3.2.2] (2024-02-01)
+
+- Fix upload private or public flag lookup in builds.yml
+- Fix yum cleanup script for oracle linux 7 error removing linux-firmware
+- Fix ubuntu user-data post command modifying a file that doesn't exist on 23.10
+
+## [v3.2.1] (2024-01-31)
+
+- Fix build list generation on aarch64 machines
+- Updated Debian 12 to 12.4
+- Updated RockyLinux 9 to 9.3
+- Updated Oracle Linux 8 to 8.9
+- Updated Oracle Linux 9 to 9.3
+- Added FreeBSD 14
+- Removed FreeBSD 12
+- Added Fedora 39
+- Removed Fedora 37
+- Remove Scientific Linux 7
+- Remove Springdale Linux builds
+- Removed Ubuntu 23.04
+- Added Ubuntu 23.10
+
+## [v.3.2.0] (2023-09-15)
+
+- Added bento upload to use vagrant account configured in builds.yml
+- Updated windows vagrant template to default to 4GB of memory
+- Default hyperv to generation 2
+- Removed EOL OS builds Windows2012r2, Ubuntu 18.04, Ubuntu 22.10, Debian 10
+- Remove use of deprecated chef-solo provisioner and cookbooks for widnows builds
+- Add boot_wait variables for each provider
+- Adjusted default_boot_wait for linux to 5s
+- Added --vars and --var_files flags
+- Fixed upload description for libvirt to add qemu hv and version
+- Updated ubuntu 20.04 boot_command
+- Changed workflows to be based on cpu architecture
+- Updated Bento to continue builds even if one fails and report all failures at the end and exit with exit code 1
+- Added qemu clone of libvirt box when metadata file is created for uploading to vagrant qemu provider
+- Made build shell scripts customizable through packer variable
+- Added ability to configure bento upload of private or public boxes in builds.yml, defaults to private
+
+## [v3.1.1] (2023-07-07)
+
+- Update RHEL 9 clones to 9.2
+- Update RHEL 8 clones to 8.8
+- Added Debian 12 variables
+- Fixed pipeline issue with plugins
+- Updated debian 11 iso url
+- switched pipeline to use bento build command and upload box and metadata.json files
+- add opensuse-leap aarch64 build
+- updated opensuse-leap to 15.5
+- Bento command exits with error status and code when a build fails for a provider
+- fixed bento metadata generation for aarch64 machines
+
+## [v3.1.0] (2023-05-17)
+
+- Updated VMware disk and cdrom adaptor type to sata for aarch64 build compatability
+- Added "arm-" to aarch64 pkrvars files vmware_guest_os_type
+- Fixed readme example for bento debian build
+- Added pkrvars file for amazon 2023, more work needed to build vagrant box if/when amazon releases images for providers
+- Removed EOL Fedora 36 build
+- Added Fedora 38 build
+- Added Ubuntu 23.04 x86_64 and aarch64
+- Switched vmware plugin back to official one with fusion 13 arm64 guest additions fix
+- Updated Bento app to support arm64 builds and upload to vagrant
+- Added Freebsd aarch64 templates
+- Added new default VMware hardware configuration settings
+- Update Debian 11 to 11.7
+
+## [v3.0.0] (2023-03-16)
+
+- fixed pipeline secrets issue for github api requests and secrets not working for forked repos
+- add back the bento ruby code and updated it to work with hcl2 templates, Json templates are no longer supported
+- made bento builds for all templates configurable through the builds.yml file on which OSes to skip
+
+## [v202303.06] (2023-03-07)
+
+- Added a cleanup step in build pipelines for cancelled jobs that otherwise leave vm in place
+
+## [v202303.05.0] (2023-03-05)
+
+### Fixes and updates
+
+- added aarch64 builds and runner
+
+### Todo
+
+- Fix failing builds
+- Finish removal of deprecated chef-solo provider to powershell provider for windows
+- migrate from http directory for hosting files to cd_files in source templates
+   - This makes all builds compatable with hyper-v gen 2 which removes floppy disk capability
+   - This also makes things universal for Virtualbox 6.1 to 7.x due to latter requiring extra config for guests on NAT to be able to connect to host
+
+- Update pipelines to only run on updated pkrvars files
+- Look into making all build uefi default builds
+- Create CD pipeline to upload vagrant boxes after PR is merged
+- Create CD pipeline to build and upload new versions of vagrant boxes once every 3 months with the latest patches
+
+## [v202302.22.0]  (2023-02-22)
+
+### New Platforms
+
+- Ubuntu 18.04 aarch64
+
+### Fixes and updates
+
+- fixed Ubuntu aarch64 builds
+- various box fixes as found
+- added qemu pipeline builds
+- added hyperv pipeline builds
+- added vmware pipeline builds
+
+### Todo
+
+- Fix failing builds
+- Add more Virtualization providers to build pipelines
+   - vmware
+      - aarch64 - vmware plugin has issues with fusion 13
+
+   - virtualbox
+      - aarch64 - Vbox Beta support currently
+
+- Finish removal of deprecated chef-solo provider to powershell provider for windows
+- migrate from http directory for hosting files to cd_files in source templates
+   - This makes all builds compatable with hyper-v gen 2 which removes floppy disk capability
+   - This also makes things universal for Virtualbox 6.1 to 7.x due to latter requiring extra config for guests on NAT to be able to connect to host
+
+- Update pipelines to only run on updated pkrvars files
+- Create CD pipeline to upload vagrant boxes after PR is merged
+- Create CD pipeline to build and upload new versions of vagrant boxes once every 3 months with the latest patches
+
+## [v202301.19.0] (2023-01-19)
+
+### Notes
+
+- When running packer build command the output directory is relative to the working directory the command is currently running in. Suggest running packer build commands from bento root directory for build working files to be placed in bento/builds/(build_name) directory by default. If the output_directory variable isn't overwritten a directory called builds/(build_name) will be created in the current working directory that you are running the command from
+
+### Fixes and updates
+
+- fixed x86_64 Ubuntu 22.10 build
+- set qemu_accelerator to null
+- fixed bug in output_directory variable - the provisioner option doesn't take template variables only hcl variables
+- updated AMZ_README_FIRST.md with how to use the updated script and actions it'll perform
+- updated README.md with vbox 7 fix and added note on builds directory being relative to the current working directory
+
+### Known Issues
+
+#### Failing Builds
+
+- OpenSUSE Leap 15 - x86_64
+- SpringdaleLinux 7 - x86_64
+- almalinux 8 - aarch64
+- CentOS 7 - aarch64
+- CentOS-Stream 8 - aarch64
+- CentOS-Stream - aarch64
+- Fedora 36 - aarch64
+- Fedora 37 - aarch64
+- OracleLinux 7 - aarch64
+- OracleLinux 8 - aarch64
+- Ubuntu 22.04 - aarch64
+- Ubuntu 22.10 - aarch64
+
+### Todo
+
+- Fix failing builds
+- Add more Virtualization providers to build pipelines
+- Finish removal of deprecated chef-solo provider to powershell provider for windows
+- migrate from http directory for hosting files to cd_files in source templates
+   - This makes all builds compatable with hyper-v gen 2 which removes floppy disk capability
+   - This also makes things universal for Virtualbox 6.1 to 7.x due to latter requiring extra config for guests on NAT to be able to connect to host
+
+- Update pipelines to only run on updated pkrvars files
+- Create CD pipeline to upload vagrant boxes after PR is merged
+- Create CD pipeline to build and upload new versions of vagrant boxes once every 3 months with the latest patches
+
+## [v202301.09.0] (2023-01-09)
+
+### Notes
+
+- Manual run command from within the bento directory `packer build -only=virtualbox-iso.vm -var-file=os_pkrvars/almalinux/almalinux-9-x86_64.pkrvars.hcl ./packer_templates`
+- Old Bento code and Json templates moved to protected branch `bento_old_json_templates`
+- All x86_64 builds are currently tested on macos-12 with virtualbox 6.1.38 in Github Actions
+- All aarch64 buiils are currently tested on internal runner with M1 macos-13.1 and parallels 18.1.1
+- Source, builder, variable hcl code found in packer_templates folder
+- Pkrvars.hcl files representing each OS, version, architecture found in os_pkrvars folders
+
+### New Platforms
+
+- CentOS 7.9 - aarch64
+- CentOS-Stream 8 - aarch64
+- CentOS-Stream 9 - aarch64
+- Fedora 37 - aarch64
+- OracleLinux 7.9 - aarch64
+- OracleLinux 8.7 - aarch64
+- OracleLinux 9.1 - aarch64
+- Rhel 7.9 - aarch64
+- Rhel 8.7 - aarch64
+- Rhel 9.1 - aarch64
+- Rhel 9.1 - x86_64
+- RockyLinux 8.7 - aarch64
+- RockyLinux 9.1 - aarch64
+- Springdalelinux 9.1 - x86_64
+- Ubuntu 22.10 - aarch64
+
+### Removed Platforms
+
+- Debian 9 - all archs
+- Debian 10.13 - i386
+- Debian 11.6 - i386
+- Freebsd 12.3 - all archs
+- Freebsd 12.4 - i386
+- OracleLinux 6 - all archs
+- Rhel 6 - all archs
+- Sles 11 - all archs
+- Ubuntu 16.04 - all archs
+- Windows 2012 - all archs
+
+### Fixes and updates
+
+- rewrite of json templates to hcl2
+- Added linting checks of files and scripts
+- Added a build pipeline for integration testing
+- Removed 32bit OS builds
+- Added several more aarch64(arm64) builds
+
+### Known Issues
+
+#### Failing Builds
+
+- OpenSUSE Leap 15 - x86_64
+- SpringdaleLinux 8 - x86_64
+- Ubuntu 22.10 - x86_64
+- CentOS 7 - aarch64
+- CentOS-Stream 8 - aarch64
+- CentOS-Stream - aarch64
+- Fedora 36 - aarch64
+- Fedora 37 - aarch64
+- OracleLinux 7 - aarch64
+- OracleLinux 8 - aarch64
+- Ubuntu 22.04 - aarch64
+- Ubuntu 22.10 - aarch64
+
+### Todo
+
+- Fix failing builds
+- Add more Virtualization providers to build pipelines
+- Finish removal of deprecated chef-solo provider to powershell provider for windows
+- migrate from http directory for hosting files to cd_files in source templates
+   - This makes all builds compatable with hyper-v gen 2 which removes floppy disk capability
+   - This also makes things universal for Virtualbox 6.1 to 7.x due to latter requiring extra config for guests on NAT to be able to connect to host
+
+- Update pipelines to only run on updated pkrvars files
+- Create CD pipeline to upload vagrant boxes after PR is merged
+- Create CD pipeline to build and upload new versions of vagrant boxes once every 3 months with the latest patches
+
+## [v202206.14.0] (2022-06-14)
+
+### New Platforms
+
+- almalinux 8.6 [\#1414](https://github.com/chef/bento/pull/1414) ([stromweld](https://github.com/stromweld))
+- almalinux 9.0 [\#1414](https://github.com/chef/bento/pull/1414) ([stromweld](https://github.com/stromweld))
+- rocklinux 8.6 [\#1414](https://github.com/chef/bento/pull/1414) ([stromweld](https://github.com/stromweld))
+- windows 11 [\#1414](https://github.com/chef/bento/pull/1414) ([stromweld](https://github.com/stromweld))
+- windows 2022 [\#1414](https://github.com/chef/bento/pull/1414) ([stromweld](https://github.com/stromweld))
+
+### Deprecated Platforms
+
+### Fixes and updates
+
+- update windows builds to be created in builds folder [\#1414](https://github.com/chef/bento/pull/1414) ([stromweld](https://github.com/stromweld))
+
+## [v201812.27.0] (2019-01-16)
+
+### New Platforms
 
 - Debian 9.6 [\#1138](https://github.com/chef/bento/pull/1138) ([cheeseplus](https://github.com/cheeseplus))
 - Fedora 29 [\#1126](https://github.com/chef/bento/pull/1126) ([avanzzzi](https://github.com/avanzzzi))
@@ -12,12 +499,12 @@
 - FreeBSD 12.0-RELEASE [\#1153](https://github.com/chef/bento/pull/1153) ([lwhsu](https://github.com/lwhsu))
 - Ubuntu 18.10 [\#1124](https://github.com/chef/bento/pull/1124) ([chenhan1218](https://github.com/chenhan1218))
 
-**Deprecated Platforms:**
+### Deprecated Platforms
 
 - FreeBSD 11.1 [\#1120](https://github.com/chef/bento/pull/1120) ([juliandunn](https://github.com/juliandunn))
 - FreeBSD 10.4 [\#1142](https://github.com/chef/bento/pull/1142) ([tas50](https://github.com/tas50))
 
-**Fixes and updates:**
+### Fixes and updates
 
 - Whiteout all spaces [\#1151](https://github.com/chef/bento/pull/1151) ([Sorbog](https://github.com/Sorbog))
 - Reduce centos locale size [\#1149](https://github.com/chef/bento/pull/1149) ([Sorbog](https://github.com/Sorbog))
@@ -34,32 +521,29 @@
 
 ## [v201808.24.0](https://github.com/chef/bento/tree/v201808.24.0) (2018-09-02)
 
-[Full Changelog](https://github.com/chef/bento/compare/v201807.12.0...v201808.24.0)
-
-**New Platforms**
+### New Platforms
 
 - CentOS 5.11 (resurrected)
 - OpenSUSE 15
 
-## [v201807.12.0](https://github.com/chef/bento/tree/v201807.12.0) (2018-07-16)
+## [v201807.12.0] (2018-07-16)
 
-[Full Changelog](https://github.com/chef/bento/compare/v201806.08.0...v201807.12.0)
-
-**New Platforms**
+### New Platforms
 
 - FreeBSD 11.2-RELEASE [\#1068](https://github.com/chef/bento/pull/1068) ([lwhsu](https://github.com/lwhsu))
 - Debian 8.11 [\#1064](https://github.com/chef/bento/pull/1064) ([kenhys](https://github.com/kenhys))
 - Debian 9.5
 - CentOS 6.10
 
-**Deprecated Platforms**
+### Deprecated Platforms
 
 - Debian 7 [\#1059](https://github.com/chef/bento/pull/1059) ([tas50](https://github.com/tas50))
 - Fedora 26 [\#1074](https://github.com/chef/bento/pull/1074) ([tas50](https://github.com/tas50))
 - Ubuntu 17.10 [\#1077](https://github.com/chef/bento/pull/1077) ([tas50](https://github.com/tas50))
 - macOS 10.9 [\#1076](https://github.com/chef/bento/pull/1076) ([tas50](https://github.com/tas50))
 
-**Fixes and Improvements**
+### Fixes and Improvements
+
 - Use a faster scientific mirror [\#1081](https://github.com/chef/bento/pull/1081) ([tas50](https://github.com/tas50))
 - Install the latest 2008-06 update for 2k8r2 [\#1080](https://github.com/chef/bento/pull/1080) ([tas50](https://github.com/tas50))
 - Update RHELs to 6.10 / 7.5 [\#1079](https://github.com/chef/bento/pull/1079) ([tas50](https://github.com/tas50))
@@ -70,19 +554,20 @@
 - Increase build time memory to 4GB on Windows boxes [\#1061](https://github.com/chef/bento/pull/1061) ([tas50](https://github.com/tas50))
 
 ## [v201806.08.0](https://github.com/chef/bento/tree/v201806.08.0) (2018-06-07)
-[Full Changelog](https://github.com/chef/bento/compare/201803.24.0...v201806.08.0)
 
-**New Platforms**
+### New Platforms
 
 - Ubuntu 18.04 (Release version)
 - CentOS 7.5 [\#1037](https://github.com/chef/bento/pull/1037) ([artem-sidorenko](https://github.com/artem-sidorenko))
 - Fedora 28 [\#1035](https://github.com/chef/bento/pull/1035) ([fkrull](https://github.com/fkrull))
 - HardenedBSD v1100055.2 [\#1033](https://github.com/chef/bento/pull/1033) ([nusenu](https://github.com/nusenu))
 
-**Deprecated Platforms**
+### Deprecated Platforms
+
 - Remove EOL'd FreeBSD-10.3 [\#1060](https://github.com/chef/bento/pull/1060) ([lwhsu](https://github.com/lwhsu))
 
-**Fixes and Improvements**
+### Fixes and Improvements
+
 - fedora, centos, rhel: added deltarpm to kickstart files [\#1030](https://github.com/chef/bento/pull/1030) ([muellerbe](https://github.com/muellerbe))
 - Clean up network configs [\#1025](https://github.com/chef/bento/pull/1025) ([Superdawg](https://github.com/Superdawg))
 - OpenSuse: Create a new 'vagrant' group for vagrant user [\#1020](https://github.com/chef/bento/pull/1020) ([hwoarang](https://github.com/hwoarang))
@@ -93,27 +578,31 @@
 - Scientific Linux templates  [\#1051](https://github.com/chef/bento/pull/1051) ([githubfoam](https://github.com/githubfoam))
 - Fix Fedora cleanup script not to cause unintended software removal. [\#1050](https://github.com/chef/bento/pull/1050) ([mgruner](https://github.com/mgruner))
 
-**Tooling**
+### Tooling
+
 - VirtualBox 5.2.12
 - Parallels 13.3.1
 - VMware Fusion 10.1.2
 - Packer 1.2.3
 - Vagrant 2.1.1
 
-## [201803.24.0](https://github.com/chef/bento/tree/201803.24.0) (2018-03-24)
+## [201803.24.0] (2018-03-24)
 
-**New Platforms**
+### New Platforms
+
 - Ubuntu 18.04 (pre-release)
 - HardenedBSD 11
 - FreeBSD 10/11 32bit
 
-**Improvements**
+## Improvements
+
 - Ubuntu 16.04+ and Debian 9: fix issues with disabling predictable interface names
 - Ubuntu/Debian: further mitigate apt locks at startup
 - Multiple platforms: cleanup errant \*.iso files
 - OpenSUSE Leap: disable Snappter/btrfs snapshots, increase disk size
 
-**Tooling**
+### Tooling
+
 - VirtualBox 5.2.6 (Note: we are not using 5.2.8)
 - Parallels 13.3.0
 - VMware Fusion 10.1.1
@@ -121,42 +610,49 @@
 - Vagrant 2.0.3
 - Hyper-V 10.0.16299.15
 
-## [201802.02.0](https://github.com/chef/bento/tree/201802.02.0) (2018-02-02)
+## [201802.02.0] (2018-02-02)
 
-**Improvements**
+### Improvements
+
 - Ubuntu: remove linux-firmware bloat w/o removing package and breaking upgrades
 - macOS: enable autologin for vagrant user
 
-**EOL**
+### EOL
+
 - Ubuntu 17.04
 - Windows Nano TP3
 
-**Tooling**
+### Tooling
+
 - VirtualBox 5.2.6
 - Parallels 13.2.0
 - VMware Fusion 10.1.1
 - Packer 1.1.3
 - Vagrant 2.0.1
 
-## [201801.05.0](https://github.com/chef/bento/tree/201801.05.0) (2018-01-05)
+## [201801.05.0] (2018-01-05)
 
-**New Platforms**
+### New Platforms
+
 - Oracle Linux 7.4
 
-**Tooling**
+### Tooling
+
 - VirtualBox 5.2.4
 - Parallels 13.2.0
 - Packer 1.1.3
 - Vagrant 2.0.1
 
-## [201801.02.0](https://github.com/chef/bento/tree/201801.02.0) (2018-01-02)
+## [201801.02.0] (2018-01-02)
 
-**New Platforms**
+### New Platforms
+
 - Debian 9.3
 - Debian 8.10
 - Fedora 27
 
-**Hyper-V Boxes (experimental)**
+### Hyper-V Boxes (experimental)
+
 - centos-7.4
 - centos-6.9
 - ubuntu-17.10
@@ -164,7 +660,8 @@
 - ubuntu-16.04
 - ubuntu-14.04
 
-**Tooling**
+### Tooling
+
 - VirtualBox 5.2.4
 - VMware Fusion 10.1.0
 - Parallels 13.2.0
@@ -172,43 +669,48 @@
 - Packer 1.1.3
 - Vagrant 2.0.1
 
-## [201710.31.0](https://github.com/chef/bento/tree/201710.31.0) (2017-10-31)
+## [201710.31.0] (2017-10-31)
 
-**New Platforms**
+### New Platforms
+
 - Ubuntu 17.10
 - Debian 9.2
 - Debian 8.10
 - FreeBSD 10.4
 - CentOS 7.4
 
-**Tooling**
+### Tooling
+
 - VirtualBox 5.1.30
 - VMware Fusion 10.0.1
 - Parallels 13.1.1
 - Packer 1.1.1
 - Vagrant 2.0.0
 
-**Fixes/Updates**
+### Fixes/Updates
+
 - SLES fixes
 - 1GB of RAM as default for boxen
 - re-organized into platform folders
 - hyper-V fixes
 - qemu fixes
 
+## [201708.22.0] (2017-08-22)
 
-## [201708.22.0](https://github.com/chef/bento/tree/201708.22.0) (2017-08-22)
+### New
 
-**New**
 - Debian 9.1
 - Debian 8.9
 - FreeBSD 11.1
 
-**Improvements**
+### Improvements
+
 - Top level slugs for point release platforms, i.e. centos-7 -> centos-7.3
 - Move to date based versioning scheme `YYYYMM.DD.PATCH`
 - Automatically update RHEL-ish platforms as we do with other platforms
 
-**Tooling**
+### Tooling
+
 - VirtualBox 5.1.26
 - VMware Fusion 8.5.8
 - VMware Workstation 12.5.7
@@ -217,77 +719,91 @@
 
 ## [2.3.8](https://github.com/chef/bento/tree/2.3.8) (2017-07-20)
 
-**New**
+### New
+
 - Fedora 26
 
-**Improvements**
+### Improvements
+
 - Suppress VMX whitelisting warning by removing interfaces at end of build
 - Use archive.ubuntu.com instead of US specific domain
 - Latest Tooling
-  - VirtualBox 5.1.24
-  - VMware Fusion 8.5.8
-  - Parallels 12.2.1
-  - Packer 1.0.3
+   - VirtualBox 5.1.24
+   - VMware Fusion 8.5.8
+   - Parallels 12.2.1
+   - Packer 1.0.3
 
-## [2.3.7](https://github.com/chef/bento/tree/2.3.7) (2017-07-03)
+## [2.3.7] (2017-07-03)
 
-**New**
+### New
+
 - Debian 8.8
 - Debian 9.0 [\#818](https://github.com/chef/bento/pull/818)
 - Oracle 6.9
 - Ubuntu 17.04 [\#808](https://github.com/chef/bento/pull/808)
 
-**Removed**
+### Removed
+
 - OmniOS
 - Ubuntu 12.04
 - SLES 12 / 12 SP1
 
-**Fixes**
+### Fixes
+
 - Fedora cleanup and size reduction
 
-## [2.3.6](https://github.com/chef/bento/tree/2.3.6) (2017-05-03)
+## [2.3.6] (2017-05-03)
 
 - Release for fixed VirtualBox 5.1.22
 
-## [2.3.5](https://github.com/chef/bento/tree/2.3.5) (2017-04-24)
+## [2.3.5] (2017-04-24)
 
 - Release primarily around broken VirtualBox 5.1.20/21 (fixed)
 
-**New**
+### New
+
 - CentOS 6.9 [\#788](https://github.com/chef/bento/pull/788)
 
-**Fixes**
+### Fixes
+
 - Oracle 6.8 `box_basename` [\#784](https://github.com/chef/bento/pull/784)
 - MacOS 10.12 issue w/ memory var [\#768](https://github.com/chef/bento/pull/768)
 
-## [2.3.4](https://github.com/chef/bento/tree/2.3.4) (2017-03-23)
+## [2.3.4] (2017-03-23)
 
 - Mostly rebuilt for updated hypervisors: VirtualBox 5.1.18 and VMware Fusion 8.5.5
 - Better cleanup for Fedora boxes
 
-## [2.3.3](https://github.com/chef/bento/tree/2.3.3) (2017-02-19)
+## [2.3.3] (2017-02-19)
 
-**Added and Updated Platforms**
+### Added and Updated Platforms
+
 - Debian 8.7
 
 ## [2.3.2](https://github.com/chef/bento/tree/2.3.2) (2016-12-19)
+
 [Full Changelog](https://github.com/chef/bento/compare/2.3.1...2.3.2)
 
-**Added and Updated Platforms**
-- CentOS and RHEL 7.3 [\#739](https://github.com/chef/bento/pull/739) ([rickard-von-essen](https://github.com/rickard-von-essen))
-- SLES 12 SP2 [\#735](https://github.com/chef/bento/pull/735) ([mattiasgiese](https://github.com/mattiasgiese))
+### Added and Updated Platforms
 
-**Improvements**
+- CentOS and RHEL 7.3 [\#739](https://github.com/chef/bento/pull/739) ([rickard-von-essen](https://github.com/rickard-von-essen))
+- SLES 12 SP2 [\#735](https://github.com/chef/bento/pull/735) ([mattiasgiese])
+
+### Improvements
+
 - Update VMware tools to fix CentOS 7.3 build [\#743](https://github.com/chef/bento/pull/743) ([cheeseplus](https://github.com/cheeseplus))
 - Remove CentOS requiretty sudoers workaround, this is now the default [\#740](https://github.com/chef/bento/pull/740) ([mvermaes](https://github.com/mvermaes))
 
-**Pipeline**
+### Pipeline
+
 - Use the bento-ya gem, add builds.yml [\#745](https://github.com/chef/bento/pull/745) ([cheeseplus](https://github.com/cheeseplus))
 
 ## [2.3.1](https://github.com/chef/bento/tree/2.3.1) (2016-11-30)
+
 [Full Changelog](https://github.com/chef/bento/compare/2.3.0...2.3.1)
 
-**Added and Updated Platforms**
+### Added and Updated Platforms
+
 - Fedora 25 [\#725](https://github.com/chef/bento/pull/725) ([rickard-von-essen](https://github.com/rickard-von-essen))
 - FreeBSD 11.0 [\#492](https://github.com/chef/bento/pull/492) ([rickard-von-essen](https://github.com/rickard-von-essen))
 - macOS Sierra [\#715](https://github.com/chef/bento/pull/715) ([kameghamegha](https://github.com/kameghamegha))
@@ -297,7 +813,7 @@
 - Oracle Linux 5.11
 - Ubuntu 16.10 [\#697](https://github.com/chef/bento/pull/697) ([rickard-von-essen](https://github.com/rickard-von-essen))
 
-**Improvements**
+### Improvements
 
 - RFC: Switch FreeBSD installation to bsdinstall [\#558](https://github.com/chef/bento/issues/558)
 - Reduce size of Linux images [\#718](https://github.com/chef/bento/pull/718) ([tas50](https://github.com/tas50))
@@ -308,31 +824,32 @@
 - Remove unused http files [\#700](https://github.com/chef/bento/pull/700) ([rickard-von-essen](https://github.com/rickard-von-essen))
 - Remove unused scripts [\#698](https://github.com/chef/bento/pull/698) ([rickard-von-essen](https://github.com/rickard-von-essen))
 
-**Fixed bugs**
+### Fixed bugs
 
 - CentOS 5.11-x86\_64 building w/ vbox 5.1.x. Fix \#729. [\#730](https://github.com/chef/bento/pull/730) ([cheeseplus](https://github.com/cheeseplus))
 - Get Solaris 11 to build again [\#687](https://github.com/chef/bento/pull/687) ([tas50](https://github.com/tas50))
 - Get OmniOS boxes building again [\#683](https://github.com/chef/bento/pull/683) ([tas50](https://github.com/tas50))
 - Fix SLES builds [\#684](https://github.com/chef/bento/pull/684), [\#707](https://github.com/chef/bento/pull/707) ([tas50](https://github.com/tas50))
 
-**Known Issues**
+### Known Issues
 
 - OpenSuSE 13.2 builds for all providers but will not start properly under VMware Fusion/Workstation
 - OpenSuSE Leap 42.2 builds for all providers but will _only_ start properly under VMware Fusion/Workstation
 
 ## [2.3.0](https://github.com/chef/bento/tree/2.3.0) (2016-09-30)
+
 [Full Changelog](https://github.com/chef/bento/compare/2.2.9...2.3.0)
 
-**SPECIAL NOTE:**
+### SPECIAL NOTE
 
 Due to issues with upstream projects that bento relies upon, the 2.3.0 release may appear to break.
 Please ensure that Virtualbox is at least 5.1.6 and Vagrant at least 1.8.6 before reporting issues.
 
-**Added Platforms:**
+### Added Platforms
 
 - add Debian 8.6 [\#669](https://github.com/chef/bento/issues/669)
 
-**Improvements:**
+### Improvements
 
 - Changed the vagrant users UID from 900 to 1000. Fix \#688 [\#675](https://github.com/chef/bento/pull/675) ([rickard-von-essen](https://github.com/rickard-von-essen))
 - Updating build.sh with more env vars [\#672](https://github.com/chef/bento/pull/672) ([cheeseplus](https://github.com/cheeseplus))
@@ -343,11 +860,11 @@ Please ensure that Virtualbox is at least 5.1.6 and Vagrant at least 1.8.6 befor
 - Add script for sles-12-sp1 [\#643](https://github.com/chef/bento/pull/643) ([oven](https://github.com/oven))
 - Refactored vmware tools scripts [\#638](https://github.com/chef/bento/pull/638) ([svpace](https://github.com/svpace))
 
-**Known Issues:**
+### Known Issues
 
 - CentOS 5 guests in VirtualBox 5.1.x fatally exit with a guru mediation error so v2.3.0 does not exist on Atlas
 
-**Tool Versions:**
+### Tool Versions
 
 - Packer 0.11.0 (master)
 - VirtualBox 5.1.16
@@ -357,34 +874,36 @@ Please ensure that Virtualbox is at least 5.1.6 and Vagrant at least 1.8.6 befor
 - Vagrant 1.8.6
 
 ## [2.2.9](https://github.com/chef/bento/tree/2.2.9) (2016-08-01)
+
 [Full Changelog](https://github.com/chef/bento/compare/2.2.8...2.2.9)
 
-**Improvements:**
+### Improvements
 
 - OpenSUSE Leap 42.1: requires 768 Mb memory. [\#632](https://github.com/chef/bento/pull/632) ([rickard-von-essen](https://github.com/rickard-von-essen))
 - Update for 16.04.1 iso [\#629](https://github.com/chef/bento/pull/629)
 - For reals fixed 16.04 pkg lock bug [\#637](https://github.com/chef/bento/pull/637) ([cheeseplus](https://github.com/cheeseplus))
 
-**Fixed bugs:**
+### Fixed bugs
 
 - VMware: HGFS not working - Ubuntu 16.04 [\#591](https://github.com/chef/bento/issues/591)
 
-**EOL**
+### EOL
 
- - Fedora 22
+- Fedora 22
 
- **Tool Versions:**
+### Tool Versions
 
- - Packer 0.10.1
- - VirtualBox 5.0.26
- - VMware Fusion 8.1.1
- - VMware Workstation 12.1.1
- - Parallels Pro 11.2.1
+- Packer 0.10.1
+- VirtualBox 5.0.26
+- VMware Fusion 8.1.1
+- VMware Workstation 12.1.1
+- Parallels Pro 11.2.1
 
 ## [2.2.8](https://github.com/chef/bento/tree/2.2.8) (2016-07-22)
+
 [Full Changelog](https://github.com/chef/bento/compare/2.2.7...2.2.8)
 
-**Improvements:**
+### Improvements
 
 - Archiving all non-current builds [\#622](https://github.com/chef/bento/pull/622) ([cheeseplus](https://github.com/cheeseplus))
 - Add Fedora 24 and dedupe kickstart scripts [\#623](https://github.com/chef/bento/pull/623) ([tas50](https://github.com/tas50))
@@ -396,14 +915,14 @@ Please ensure that Virtualbox is at least 5.1.6 and Vagrant at least 1.8.6 befor
 - Fix new-style device naming from Network Manager on RHEL/CentOS 7 [\#617](https://github.com/chef/bento/pull/617) ([legal90](https://github.com/legal90))
 - update apt sources to use archive.debian.org for packages [\#614](https://github.com/chef/bento/pull/614) ([apollocatlin](https://github.com/apollocatlin))
 
-**Fixed bugs:**
+### Fixed bugs
 
 - apt.systemd.daily creates conflict in xenial64 box [\#616](https://github.com/chef/bento/issues/616)
 - FreeBSD: Root password not set! [\#610](https://github.com/chef/bento/issues/610)
 - ubuntu-16.04: unattended updates locking dpkg [\#609](https://github.com/chef/bento/issues/609)
 - Fix vagrant.sh failing on Solaris nodes [\#606](https://github.com/chef/bento/pull/606) ([tas50](https://github.com/tas50))
 
-**Tool Versions:**
+### Tool Versions
 
 - Packer 0.10.1
 - VirtualBox 5.0.24
@@ -411,21 +930,22 @@ Please ensure that Virtualbox is at least 5.1.6 and Vagrant at least 1.8.6 befor
 - Parallels Pro 11.2.0
 
 ## [2.2.7](https://github.com/chef/bento/tree/2.2.7) (2016-05-20)
+
 [Full Changelog](https://github.com/chef/bento/compare/2.2.6...2.2.7)
 
-**Improvements:**
+### Improvements
 
 - Ubuntu: HWE BEGONE! pt 1 - Fix for VMware HGFS on 14.04 [\#584](https://github.com/chef/bento/pull/584) ([davidmnoriega](https://github.com/davidmnoriega))
 - Ubuntu: HWE BEGONE! pt 2 - The Pangolining [\#587](https://github.com/chef/bento/pull/587) ([cheeseplus](https://github.com/cheeseplus))
 - OpenSuSE: Switching to more reliable mirror [\#583](https://github.com/chef/bento/pull/583) ([cheeseplus](https://github.com/cheeseplus))
 - Added "disk\_size" user variable [\#596](https://github.com/chef/bento/pull/596) ([svpace](https://github.com/svpace))
 
-**Fixed bugs:**
+### Fixed bugs
 
 - Ubuntu 16.04: 70-persistent-net.rules "hack" messes with update-initramfs triggers [\#592](https://github.com/chef/bento/issues/592)
 - VMware: use correct script flags based on version [\#590](https://github.com/chef/bento/issues/590)
 
-**Tool Versions:**
+### Tool Versions
 
 - Packer 0.10.1
 - VirtualBox 5.0.20
@@ -434,16 +954,17 @@ Please ensure that Virtualbox is at least 5.1.6 and Vagrant at least 1.8.6 befor
 - Parallels Pro 11.2.0
 
 ## [2.2.6](https://github.com/chef/bento/tree/2.2.6) (2016-04-28)
+
 [Full Changelog](https://github.com/chef/bento/compare/2.2.5...2.2.6)
 
-**Tool Versions:**
+### Tool Versions
 
 - Packer 0.10.0
 - VirtualBox 5.0.16
 - VMware Fusion 8.1.1
 - Parallels Pro 11.1.3
 
-**Added platforms:**
+### Added platforms
 
 - Debian 8.4 [\#559](https://github.com/chef/bento/pull/559) ([kenhys](https://github.com/kenhys))
 - Debian 7.10 [\#563](https://github.com/chef/bento/pull/563) ([kenhys](https://github.com/kenhys))
@@ -451,28 +972,30 @@ Please ensure that Virtualbox is at least 5.1.6 and Vagrant at least 1.8.6 befor
 - OmniOS 151018 [\#565](https://github.com/chef/bento/pull/565) ([tas50](https://github.com/tas50))
 - Ubuntu 16.04 [\#545](https://github.com/chef/bento/pull/545) ([cheeseplus](https://github.com/cheeseplus))
 
-**Fixed bugs:**
+### Fixed bugs
 
 - VMWare: tie network device to pci slot 32 [\#566](https://github.com/chef/bento/pull/566) ([rmoriz](https://github.com/rmoriz))
 - VMware: Fedora 23 box builds but can't connect [\#521](https://github.com/chef/bento/issues/521)
 - Publish Ubuntu 15.10 boxes on Atlas [\#506](https://github.com/chef/bento/issues/506)
 
-**Improvements:**
+### Improvements
 
 - Standardize on 512MB minimum memory [\#574](https://github.com/chef/bento/issues/574)
 - Added headless option for QEMU builders [\#570](https://github.com/chef/bento/pull/570) ([jmatt](https://github.com/jmatt))
 
 ## [2.2.5](https://github.com/chef/bento/tree/2.2.5) (2016-03-29)
+
 [Full Changelog](https://github.com/chef/bento/compare/2.2.4...2.2.5)
 
-**Merged pull requests:**
+### Merged pull requests
 
 - Ubuntu: use dist-upgrade and install build packages in preseed [\#551](https://github.com/chef/bento/pull/551) ([cheeseplus](https://github.com/cheeseplus))
 
 ## [2.2.4](https://github.com/chef/bento/tree/2.2.4) (2016-03-29)
+
 [Full Changelog](https://github.com/chef/bento/compare/2.2.3...2.2.4)
 
-**Closed issues:**
+### Closed issues
 
 - CALL FOR MAINTAINERS [\#537](https://github.com/chef/bento/issues/537)
 - Proposal: Move bento under test-kitchen org [\#536](https://github.com/chef/bento/issues/536)
@@ -489,7 +1012,7 @@ Please ensure that Virtualbox is at least 5.1.6 and Vagrant at least 1.8.6 befor
 - ARM builds [\#486](https://github.com/chef/bento/issues/486)
 - Minimize script results in large \(non-sparse\) image file for QEMU builder [\#369](https://github.com/chef/bento/issues/369)
 
-**Merged pull requests:**
+### Merged pull requests
 
 - Cutting 2.2.4 [\#550](https://github.com/chef/bento/pull/550) ([cheeseplus](https://github.com/cheeseplus))
 - Update mirror URL for Debian 8.2 [\#544](https://github.com/chef/bento/pull/544) ([legal90](https://github.com/legal90))
@@ -508,14 +1031,15 @@ Please ensure that Virtualbox is at least 5.1.6 and Vagrant at least 1.8.6 befor
 - Cutting 2.2.3 [\#515](https://github.com/chef/bento/pull/515) ([cheeseplus](https://github.com/cheeseplus))
 
 ## [2.2.3](https://github.com/chef/bento/tree/2.2.3) (2015-12-28)
+
 [Full Changelog](https://github.com/chef/bento/compare/2.2.2...2.2.3)
 
-**Fixed bugs:**
+### Fixed bugs
 
 - minimize.sh fails with no swap partition [\#420](https://github.com/chef/bento/issues/420)
 - Workstation 11.1.2 Tools incompatible with current builds [\#377](https://github.com/chef/bento/issues/377)
 
-**Closed issues:**
+### Closed issues
 
 - Debian cleanup script removes C/C++ compiler and therefore breaks DKMS support [\#509](https://github.com/chef/bento/issues/509)
 - RHEL 6.7 image has wrong guest [\#501](https://github.com/chef/bento/issues/501)
@@ -535,7 +1059,7 @@ Please ensure that Virtualbox is at least 5.1.6 and Vagrant at least 1.8.6 befor
 - opscode-centos-7.1 Virtualbox box not able to NFS mount [\#388](https://github.com/chef/bento/issues/388)
 - Vagrant public key file could be empty [\#258](https://github.com/chef/bento/issues/258)
 
-**Merged pull requests:**
+### Merged pull requests
 
 - Revert "fix or suppress all shellcheck warnings" [\#513](https://github.com/chef/bento/pull/513) ([cheeseplus](https://github.com/cheeseplus))
 - Stops DKMS package from being removed. [\#510](https://github.com/chef/bento/pull/510) ([RobertDeRose](https://github.com/RobertDeRose))
@@ -555,19 +1079,20 @@ Please ensure that Virtualbox is at least 5.1.6 and Vagrant at least 1.8.6 befor
 - \[DRY\] up rhel [\#475](https://github.com/chef/bento/pull/475) ([cheeseplus](https://github.com/cheeseplus))
 - \[DRY\] SLES [\#474](https://github.com/chef/bento/pull/474) ([cheeseplus](https://github.com/cheeseplus))
 - \[DRY\] Oracle Linux [\#473](https://github.com/chef/bento/pull/473) ([cheeseplus](https://github.com/cheeseplus))
-- Minimized AutoYaST profiles for SLES 11.3/12 to enhance readability [\#373](https://github.com/chef/bento/pull/373) ([mattiasgiese](https://github.com/mattiasgiese))
+- Minimized AutoYaST profiles for SLES 11.3/12 to enhance readability [\#373](https://github.com/chef/bento/pull/373) ([mattiasgiese])
 
 ## [2.2.2](https://github.com/chef/bento/tree/2.2.2) (2015-10-07)
+
 [Full Changelog](https://github.com/chef/bento/compare/2.2.1...2.2.2)
 
-**Closed issues:**
+### Closed issues
 
 - bento/centos-6.7 won't vagrant up after halt or reload [\#468](https://github.com/chef/bento/issues/468)
 - Build process broken under VMware Workstation 11.1.2 [\#467](https://github.com/chef/bento/issues/467)
 - minimize.sh leads to unexpected error in packer \(vagrant 1.7.2\) [\#320](https://github.com/chef/bento/issues/320)
 - Ubuntu 14.04 VMware HGFS modules not loaded [\#283](https://github.com/chef/bento/issues/283)
 
-**Merged pull requests:**
+### Merged pull requests
 
 - Cutting 2.2.2 release [\#471](https://github.com/chef/bento/pull/471) ([cheeseplus](https://github.com/cheeseplus))
 - The sha changed :/ [\#470](https://github.com/chef/bento/pull/470) ([cheeseplus](https://github.com/cheeseplus))
@@ -586,9 +1111,10 @@ Please ensure that Virtualbox is at least 5.1.6 and Vagrant at least 1.8.6 befor
 - Adding verification \(tk\) stage to build process [\#451](https://github.com/chef/bento/pull/451) ([cheeseplus](https://github.com/cheeseplus))
 
 ## [2.2.1](https://github.com/chef/bento/tree/2.2.1) (2015-09-16)
+
 [Full Changelog](https://github.com/chef/bento/compare/2.2.0...2.2.1)
 
-**Closed issues:**
+### Closed issues
 
 - Debian 7.9 [\#444](https://github.com/chef/bento/issues/444)
 - Building boxes results in files with unhelpful names [\#433](https://github.com/chef/bento/issues/433)
@@ -609,7 +1135,7 @@ Please ensure that Virtualbox is at least 5.1.6 and Vagrant at least 1.8.6 befor
 - Puppet support in bento? [\#251](https://github.com/chef/bento/issues/251)
 - rename box prefixes to bento- instead of opscode- [\#208](https://github.com/chef/bento/issues/208)
 
-**Merged pull requests:**
+### Merged pull requests
 
 - DRY up opensuse [\#450](https://github.com/chef/bento/pull/450) ([cheeseplus](https://github.com/cheeseplus))
 - \[fedora-\*\] DRYness pass [\#449](https://github.com/chef/bento/pull/449) ([cheeseplus](https://github.com/cheeseplus))
@@ -631,9 +1157,10 @@ Please ensure that Virtualbox is at least 5.1.6 and Vagrant at least 1.8.6 befor
 - CentOS kickstarts: Change sed to not rewrite sudo comments [\#326](https://github.com/chef/bento/pull/326) ([mvermaes](https://github.com/mvermaes))
 
 ## [2.2.0](https://github.com/chef/bento/tree/2.2.0) (2015-08-26)
+
 [Full Changelog](https://github.com/chef/bento/compare/2.1.0...2.2.0)
 
-**Merged pull requests:**
+### Merged pull requests
 
 - Update Readme and small fixes/cleanup to Rake tasks [\#426](https://github.com/chef/bento/pull/426) ([cheeseplus](https://github.com/cheeseplus))
 - Freebsd 10.2 [\#424](https://github.com/chef/bento/pull/424) ([geoffgarside](https://github.com/geoffgarside))
@@ -643,18 +1170,19 @@ Please ensure that Virtualbox is at least 5.1.6 and Vagrant at least 1.8.6 befor
 - \[macosx-\*\] Increase disk\_size to ~40G from ~20G. [\#413](https://github.com/chef/bento/pull/413) ([fnichol](https://github.com/fnichol))
 
 ## [2.1.0](https://github.com/chef/bento/tree/2.1.0) (2015-08-07)
+
 [Full Changelog](https://github.com/chef/bento/compare/2.0.0...2.1.0)
 
-**Fixed bugs:**
+### Fixed bugs
 
 - Shortening vm\_name to avoid Parallels box corruption [\#400](https://github.com/chef/bento/pull/400) ([cheeseplus](https://github.com/cheeseplus))
 
-**Closed issues:**
+### Closed issues
 
 - Debian 8.1 [\#379](https://github.com/chef/bento/issues/379)
 - Chef on Centos boxes seems not be installed [\#352](https://github.com/chef/bento/issues/352)
 
-**Merged pull requests:**
+### Merged pull requests
 
 - \[debian-\*\] Improve DRYness, correctness, & speed of Debian templates. [\#404](https://github.com/chef/bento/pull/404) ([fnichol](https://github.com/fnichol))
 - \[freebsd-\*\] Improve DRYness, correctness, & speed of FreeBSD templates. [\#403](https://github.com/chef/bento/pull/403) ([fnichol](https://github.com/fnichol))
@@ -668,13 +1196,14 @@ Please ensure that Virtualbox is at least 5.1.6 and Vagrant at least 1.8.6 befor
 - Add @cheeseplus to MAINTAINERS.md [\#392](https://github.com/chef/bento/pull/392) ([fnichol](https://github.com/fnichol))
 
 ## [2.0.0](https://github.com/chef/bento/tree/2.0.0) (2015-07-03)
-**Fixed bugs:**
+
+### Fixed bugs
 
 - Do not write metadata files when `bento build` is in dry run mode [\#368](https://github.com/chef/bento/issues/368)
 - fix OmniOS build under VMWare [\#178](https://github.com/chef/bento/issues/178)
 - Don't write metadata file in `bento build` dry run mode. [\#380](https://github.com/chef/bento/pull/380) ([fnichol](https://github.com/fnichol))
 
-**Closed issues:**
+### Closed issues
 
 - Release Debian 8.0 boxes [\#381](https://github.com/chef/bento/issues/381)
 - Upload Ubuntu 15.04 to S3 Bucket [\#376](https://github.com/chef/bento/issues/376)
@@ -742,7 +1271,7 @@ Please ensure that Virtualbox is at least 5.1.6 and Vagrant at least 1.8.6 befor
 - 'Error downloading kickstart file' within Oracle VM VirtualBox [\#172](https://github.com/chef/bento/issues/172)
 - move single-request-reopen from ks.cfg [\#171](https://github.com/chef/bento/issues/171)
 
-**Merged pull requests:**
+### Merged pull requests
 
 - \[macosx-\*\] Add support for {http,https,no}\_proxy environment variables. [\#391](https://github.com/chef/bento/pull/391) ([fnichol](https://github.com/fnichol))
 - Remove files that are no longer referenced by any templates. [\#390](https://github.com/chef/bento/pull/390) ([fnichol](https://github.com/fnichol))
@@ -939,6 +1468,4 @@ Please ensure that Virtualbox is at least 5.1.6 and Vagrant at least 1.8.6 befor
 - \[BENTO-2\] Update Ubuntu iso filenames, md5sums. [\#6](https://github.com/chef/bento/pull/6) ([torandu](https://github.com/torandu))
 - \[BENTO-4\] Updated centos 6.2 iso urls to use the vault.centos.org url [\#4](https://github.com/chef/bento/pull/4) ([cburyta](https://github.com/cburyta))
 
-
-
-\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
+\* _This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)_
